@@ -3261,7 +3261,9 @@ static Tensor _linalg_cond_helper(const Tensor& self, std::variant<Scalar, std::
     Tensor norm_inverse = at::linalg_matrix_norm(inverse, ord);
     Tensor result = norm_self * norm_inverse;
     // fix multiplication of zero and infinity for NumPy compatibility
-    result.nan_to_num_(INFINITY, INFINITY, -INFINITY);
+    if(!self.isnan().any().item<bool>()) {
+      result.nan_to_num_(INFINITY, INFINITY, -INFINITY);
+    }
     return result;
   }, ord_variant);
 }

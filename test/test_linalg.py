@@ -1773,7 +1773,11 @@ class TestLinalg(TestCase):
         for p in [1, -1, inf, -inf, 'fro', 'nuc']:
             result = torch.linalg.cond(a, p)
             self.assertEqual(result[1], float('inf'))
-
+        #check NaN input returns NaN for non-SVD norm types
+        a=torch.tensor([[float('nan')]], dtype=dtype, device=device)
+        for p in [1, -1, inf, -inf, 'fro']:
+            result = torch.linalg.cond(a, p)
+            self.assertTrue(torch.isnan(result), f'Expected NaN for p={p} but got {result}')
         # check invalid norm type
         a = torch.ones(3, 3, dtype=dtype, device=device)
         for p in ['wrong_norm', 5]:
