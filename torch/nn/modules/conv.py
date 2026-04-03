@@ -502,7 +502,7 @@ class Conv2d(_ConvNd):
         >>> output = m(input)
 
     .. _cross-correlation:
-        https://en.wikipedia.org/wiki/Cross-correlation#Discrete_functions
+        https://en.wikipedia.org/wiki/Cross-correlation
 
     .. _link:
         https://github.com/vdumoulin/conv_arithmetic/blob/master/README.md
